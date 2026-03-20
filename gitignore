@@ -1,0 +1,25 @@
+# Data (download separately via Roboflow)
+data/
+
+# Model weights and training runs
+runs/
+*.pt
+*.onnx
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+venv/
+.venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Results (generated outputs)
+results/
+
+# OS
+.DS_Store
+Thumbs.db

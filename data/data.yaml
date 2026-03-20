@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 2
+names: ['fachada', 'poste']
+
+roboflow:
+  workspace: juans-workspace-weeid
+  project: my-first-project-fivsf
+  version: 3
+  license: Private
+  url: https://app.roboflow.com/juans-workspace-weeid/my-first-project-fivsf/3
