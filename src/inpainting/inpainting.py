@@ -149,14 +149,18 @@ def run_lama(lama_path: Path, tmp_dir: Path, output_dir: Path):
     print(f"  Checkpoint: {lama_checkpoint}")
 
     # Build the command that calls LaMa's predict script
+    tmp_dir_abs = str(tmp_dir.resolve())
+    output_dir_abs = str(output_dir.resolve())
+    model_path_abs = str((lama_path / 'big-lama').resolve())
+
     cmd = [
         str(lama_python),
         str(lama_predict),
-        f"model.path={lama_path / 'big-lama'}",
-        f"indir={tmp_dir}",
-        f"outdir={output_dir}",
+        f"model.path={model_path_abs}",
+        f"indir={tmp_dir_abs}",
+        f"outdir={output_dir_abs}",
+        "dataset.img_suffix=.jpg",
     ]
-
     # Add lama's root to PYTHONPATH so it can find saicinpainting
     env = os.environ.copy()
     env["PYTHONPATH"] = str(lama_path)
@@ -201,10 +205,10 @@ def main():
     print("=" * 60)
     run_lama(lama_path, tmp_dir, output_dir)
 
-    print("\n" + "=" * 60)
-    print("STEP 3: Cleanup")
-    print("=" * 60)
-    cleanup(tmp_dir)
+    # print("\n" + "=" * 60)
+    # print("STEP 3: Cleanup")
+    # print("=" * 60)
+    # cleanup(tmp_dir)
 
     print(f"\n✅ Done! Inpainted images saved to: {output_dir}")
 

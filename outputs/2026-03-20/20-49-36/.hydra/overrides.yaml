@@ -1,0 +1,4 @@
+- model.path=C:\Users\sebas\0. Python\lama\big-lama
+- indir=D:\sebas\Maestria\03 Semestre\01. Apps_ML\Taller3\results\lama_tmp
+- outdir=D:\sebas\Maestria\03 Semestre\01. Apps_ML\Taller3\results\inpainted
+- dataset.img_suffix=.jpg
