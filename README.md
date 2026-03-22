@@ -1,6 +1,6 @@
-# 🏙️ Facade & Pole Detection with Inpainting
+# 🏙️ Detección de fachadas y postes con Inpainting
 
-> **Computer Vision pipeline** for detecting building facades and utility poles in urban imagery, followed by automated pole removal using deep learning inpainting models.
+> **Computer Vision pipeline** para la detección de fachadas de edificios y postes de servicios públicos en imágenes urbanas, seguida de la eliminación automatizada de postes mediante modelos de relleno de aprendizaje profundo.
 
 ![Python](https://img.shields.io/badge/Python-3.9+-blue?style=flat-square&logo=python)
 ![YOLOv8](https://img.shields.io/badge/YOLOv8-Ultralytics-orange?style=flat-square)
@@ -8,14 +8,16 @@
 
 ---
 
-## 📌 Overview
+## 📌 Descripción general
 
-This project implements a two-stage computer vision pipeline:
+Este proyecto implementa un proceso de visión artificial de dos etapas:
 
-1. **Detection** — Fine-tuned YOLOv8 model trained to detect `fachada` (facade) and `poste` (pole) classes in urban images.
-2. **Inpainting** — Detected poles are masked and removed from images using a deep learning inpainting model, reconstructing the background behind them.
+1. **Detección** — Modelo YOLOv8 ajustado para detectar las clases `fachada` (fachadas) y `poste` (postes) en imágenes urbanas
+2. **Inpainting** — Los postes detectados se enmascaran y se eliminan de las imágenes mediante un modelo de relleno de aprendizaje profundo, reconstruyendo el fondo que hay detrás de ellos.
 
-The dataset was built and labeled using [Roboflow](https://roboflow.com), containing **170 images** (with augmentation applied) exported in YOLOv8 format.
+
+
+El conjunto de datos fue construido y etiquetado utilizando [Roboflow](https://roboflow.com), que contiene **170 images** (con aumento aplicado) Exportado en formato YOLOv8.
 
 ---
 
@@ -24,7 +26,7 @@ The dataset was built and labeled using [Roboflow](https://roboflow.com), contai
 ```
 facade-pole-detection/
 │
-├── data/                          # Dataset (not tracked by Git)
+├── data/                          # Conjunto de datos (no cargado en Git)
 │   ├── train/
 │   │   ├── images/
 │   │   └── labels/
@@ -39,35 +41,35 @@ facade-pole-detection/
 │   ├── detection/
 │   │   ├── train.py               # YOLOv8 fine-tuning script
 │   │   ├── evaluate.py            # Evaluation: mAP, precision, recall
-│   │   └── predict.py             # Run inference on new images
+│   │   └── predict.py             # Ejecutar inferencia en imágenes nuevas
 │   │
 │   ├── inpainting/
-│   │   ├── mask_generator.py      # Generate masks from YOLO detections
-│   │   └── inpaint.py             # Apply inpainting model to masked images
+│   │   ├── mask_generator.py      # Generar máscaras a partir de detecciones de YOLO
+│   │   └── inpaint.py             # Aplicar el modelo de relleno a imágenes enmascaradas
 │   │
 │   └── utils/
-│       ├── visualize.py           # Draw bounding boxes and masks
-│       └── io_utils.py            # File and image I/O helpers
+│       ├── visualize.py           # Dibujar cuadros delimitadores y máscaras
+│       └── io_utils.py            # Ayudantes de entrada/salida de archivos e imágenes
 │
 ├── scripts/
 │   ├── run_pipeline.py            # End-to-end pipeline script
-│   └── batch_process.py           # Batch inference on a folder of images
+│   └── batch_process.py           # Inferencia por lotes en una carpeta de imágenes
 │
 ├── notebooks/
-│   ├── 01_eda.ipynb               # Exploratory data analysis
+│   ├── 01_eda.ipynb               # Análisis de datos exploratorios.
 │   ├── 02_training.ipynb          # Training walkthrough
-│   └── 03_results_analysis.ipynb  # Results and metric visualization
+│   └── 03_results_analysis.ipynb  # Visualización de resultados y métricas
 │
 ├── configs/
-│   └── data.yaml                  # Dataset config for YOLOv8
+│   └── data.yaml                  # Configuración del conjunto de datos para YOLOv8
 │
 ├── results/
-│   ├── detections/                # Images with bounding boxes
-│   ├── masks/                     # Binary masks of detected poles
-│   └── inpainted/                 # Final images with poles removed
+│   ├── detections/                # Imágenes con cuadros delimitadores
+│   ├── masks/                     # Máscaras binarias de polos detectados
+│   └── inpainted/                 # Imágenes finales con los postes retirados.
 │
 ├── docs/
-│   └── pipeline_diagram.png       # Visual overview of the pipeline
+│   └── pipeline_diagram.png       # Descripción general visual del proceso
 │
 ├── requirements.txt
 └── README.md
@@ -75,24 +77,25 @@ facade-pole-detection/
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Empezando
 
-### 1. Clone the repository
+### 1. Clone el repositorio
 
 ```bash
 git clone https://github.com/<your-username>/facade-pole-detection.git
 cd facade-pole-detection
 ```
 
-### 2. Install dependencies
+### 2. Instalar dependencias
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. Set up the dataset
+### 3. Configurar el conjunto de datos
 
-Download your Roboflow dataset and place the `train/`, `valid/`, and `test/` folders inside a `data/` directory at the root of the project. Your `configs/data.yaml` should already point to these paths.
+Descargar el conjunto de datos de Roboflow y coloca las carpetas `train/`, `valid/` y `test/` dentro de un directorio `data/` en la raíz del proyecto. Tu archivo `configs/data.yaml` ya debería apuntar a estas rutas.
+
 
 ```yaml
 # configs/data.yaml
@@ -109,9 +112,9 @@ names: ['fachada', 'poste']
 
 ## 🧠 Pipeline
 
-### Step 1 — Train the Detection Model
+### Paso 1: Entrenar el modelo de detección.
 
-Fine-tune YOLOv8 on our labeled dataset:
+Ajuste fino de YOLOv8 en nuestro conjunto de datos etiquetados:
 
 ```bash
 python src/detection/train.py \
@@ -121,7 +124,7 @@ python src/detection/train.py \
   --imgsz 640
 ```
 
-### Step 2 — Evaluate the Model
+### Paso 2 — Evaluar el modelo
 
 ```bash
 python src/detection/evaluate.py \
@@ -129,9 +132,9 @@ python src/detection/evaluate.py \
   --data configs/data.yaml
 ```
 
-Metrics reported: **mAP@0.5**, **Precision**, **Recall**
+Métricas reportadas: **mAP@0.5**, **Precision**, **Recall**
 
-### Step 3 — Run Inference
+### Paso 3: Ejecutar inferencia
 
 ```bash
 python src/detection/predict.py \
@@ -140,7 +143,7 @@ python src/detection/predict.py \
   --save-results results/detections/
 ```
 
-### Step 4 — Generate Pole Masks
+### Paso 4 — Generar máscaras de postes
 
 ```bash
 python src/inpainting/mask_generator.py \
@@ -148,7 +151,7 @@ python src/inpainting/mask_generator.py \
   --output results/masks/
 ```
 
-### Step 5 — Remove Poles via Inpainting
+### Paso 5: Eliminar postes mediante relleno.
 
 ```bash
 python src/inpainting/inpaint.py \
@@ -157,7 +160,7 @@ python src/inpainting/inpaint.py \
   --output results/inpainted/
 ```
 
-### Full Pipeline (Single Command)
+### Pipeline completo (comando único)
 
 ```bash
 python scripts/run_pipeline.py \
@@ -168,7 +171,7 @@ python scripts/run_pipeline.py \
 
 ---
 
-## 📊 Dataset
+## 📊 Conjunto de datos
 
 | Split      | Images |
 |------------|--------|
@@ -177,33 +180,33 @@ python scripts/run_pipeline.py \
 | Test       | ~17    |
 | **Total**  | **170** |
 
-**Preprocessing applied by Roboflow:**
-- Auto-orientation (EXIF stripping)
-- Resize to 640×640 (stretch)
+**Preprocesamiento aplicado por Roboflow:**
+- Autoorientación (eliminación de datos EXIF)
+- Cambiar tamaño a 640×640 (estirar)
 
-**Augmentations applied (2× per image):**
-- 50% probability horizontal flip
-- Random brightness: ±15%
-- Random exposure: ±10%
+**Aumentos aplicados (2 veces por imagen):**
+- 50% de probabilidad de giro horizontal
+- Brillo aleatorio: ±15%
+- RExposición aleatoria: ±10%
 
-**Classes:** `fachada` (facade), `poste` (utility pole)
+**Clases:** `fachada` (Fachadas), `poste` (postes)
 
-**Annotation format:** YOLOv8 bounding boxes
+**Formato de anotación:** Cuadros delimitadores YOLOv8
 
 ---
 
-## 🎨 Inpainting Models
+## 🎨Repintado de modelos
 
-This project supports the following inpainting backends:
+Este proyecto admite los siguientes backends de relleno de imágenes:
 
-| Model | Repository | Notes |
+| Modelo | Repositorio | Notas |
 |-------|-----------|-------|
 | **LaMa** | [advimman/lama](https://github.com/advimman/lama) | Best quality, recommended |
 | **Inpaint-Anything** | [geekyutao/Inpaint-Anything](https://github.com/geekyutao/Inpaint-Anything) | SAM-based, flexible |
 
 ---
 
-## 📦 Requirements
+## 📦 Requisitos
 
 ```
 ultralytics>=8.0.0
@@ -219,18 +222,12 @@ tqdm>=4.65.0
 
 ---
 
-## 🎬 Demo Video
+## 🎬 Vídeo de demostración
 
-📺 [Watch on YouTube](<youtube-link-here>)
+📺 [Ver en youtube](<youtube-link-here>)
 
 ---
 
 ## 👥 Team
 
-Developed as part of a Master's program in Machine Learning & Deep Learning.
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License.
+Desarrollado como parte de un programa de maestría en Aprendizaje Automático y Aprendizaje Profundo. 
