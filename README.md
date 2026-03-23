@@ -82,8 +82,7 @@ facade-pole-detection/
 ### 1. Clone el repositorio
 
 ```bash
-git clone https://github.com/<your-username>/facade-pole-detection.git
-cd facade-pole-detection
+git clone https://github.com/JuanLondono2/computer_vision_inpainting.git
 ```
 
 ### 2. Instalar dependencias
@@ -94,7 +93,7 @@ pip install -r requirements.txt
 
 ### 3. Configurar el conjunto de datos
 
-Descargar el conjunto de datos de Roboflow y coloca las carpetas `train/`, `valid/` y `test/` dentro de un directorio `data/` en la raíz del proyecto. Tu archivo `configs/data.yaml` ya debería apuntar a estas rutas.
+El conjunto de datos etiquetado por Roboflow se encuentra en las carpetas `train/`, `valid/` y `test/` dentro de un directorio `data/` en la raíz del proyecto. el archivo `configs/data.yaml` ya apunta a estas rutas.
 
 
 ```yaml
